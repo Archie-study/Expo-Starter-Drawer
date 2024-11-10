@@ -1,37 +1,20 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const Drawer = createDrawerNavigator();
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import Index from "./index";
+import About from "./about";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <Drawer.Navigator initialRouteName="index">
+      <Drawer.Screen name="index" component={Index} options={{ title: "Home" }} />
+      <Drawer.Screen name="about" component={About} options={{ title: "About" }} />
+    </Drawer.Navigator>
+    // <Stack>
+    //   <Stack.Screen name="index" options={{ title: "Home" }} />
+    //   <Stack.Screen name="about" options={{ title: "About" }} />
+    // </Stack>
   );
 }

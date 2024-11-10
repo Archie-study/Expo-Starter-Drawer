@@ -1,13 +1,13 @@
-import { Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
-
-
+import { Text, View, StyleSheet } from 'react-native';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
-      <Link href="/AddProductScreen" style={styles.button}>Go to about screen</Link>
+      <Link href="/AddProductScreen" style={styles.button}>
+        Go to about screen
+      </Link>
     </View>
   );
 }
@@ -26,5 +26,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#fff',
     textDecorationLine: 'underline',
-  }
-})
+  },
+});

@@ -3,11 +3,11 @@ import { Link } from "expo-router";
 
 
 
-export default function Index() {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
-      <Link href="/about" style={styles.button}>Go to about screen</Link>
+      <Link href="/AddProductScreen" style={styles.button}>Go to about screen</Link>
     </View>
   );
 }

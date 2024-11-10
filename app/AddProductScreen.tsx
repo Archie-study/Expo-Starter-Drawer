@@ -1,9 +1,9 @@
 import { Text, View, StyleSheet } from "react-native";
 
-export default function AboutScreen(){
+export default function AddProductScreen(){
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>About Screen</Text>
+      <Text style={styles.text}>Add Product Screen</Text>
     </View>
   )
 }

@@ -1,16 +1,43 @@
 import { Stack } from "expo-router";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { AntDesign } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 
-import Index from "./index";
-import About from "./about";
+// import Index from "./HomeScreen";
+// import About from "./AddProductScreen";
+import HomeScreen from "./HomeScreen";
+import AddProductScreen from "./AddProductScreen";
 
 export default function RootLayout() {
   return (
-    <Drawer.Navigator initialRouteName="index">
-      <Drawer.Screen name="index" component={Index} options={{ title: "Home" }} />
-      <Drawer.Screen name="about" component={About} options={{ title: "About" }} />
+    <Drawer.Navigator initialRouteName="HomeScreen">
+      <Drawer.Screen 
+        name="HomeScreen" 
+        component={HomeScreen} 
+        options={{ 
+          title: "Daily Fashion",
+          headerStyle: {
+            backgroundColor: '#D1E5C2'
+          },
+          drawerIcon: () => (
+            <AntDesign name="home" size={16}/>
+          ) 
+        }} 
+      />
+      <Drawer.Screen 
+        name="AddProductScreen" 
+        component={AddProductScreen} 
+        options={{ 
+          title: "Add Product",
+          headerStyle: {
+            backgroundColor: '#D1E5C2'
+          },
+          drawerIcon: () => (
+            <AntDesign name="plus" size={16}/>
+          ) 
+        }}  
+      />
     </Drawer.Navigator>
     // <Stack>
     //   <Stack.Screen name="index" options={{ title: "Home" }} />

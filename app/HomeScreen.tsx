@@ -1,9 +1,22 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import Swiper from 'react-native-swiper';
-import { imageSlider } from '../data/Data'; // Adjust the path according to your folder structure
+import { imageSlider, categoryList } from '../data/Data';
+import { NavigationProp } from '@react-navigation/native';
 
-const HomeScreen: React.FC = () => {
+interface HomeScreenProps {
+  navigation: NavigationProp<any>;
+}
+
+const HomeScreen: React.FC<HomeScreenProps> = (props) => {
+  const { navigation } = props;
   return (
     <View style={styles.container}>
       {/* Image Slider */}
@@ -22,10 +35,33 @@ const HomeScreen: React.FC = () => {
           ))}
         </Swiper>
       </View>
-      {/* 
-      <Link href="/AddProductScreen" style={styles.button}>
-        Go to about screen
-      </Link> */}
+
+      <View style={styles.titleContainer}>
+        <Text style={styles.text}>Categories</Text>
+      </View>
+
+      <FlatList
+        data={categoryList}
+        key={3}
+        numColumns={3}
+        // keyExtractor={(item) => item.id}
+        keyExtractor={(item) => `${item.id}`}
+        contentContainerStyle={styles.flatListContainer}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() =>
+                navigation.navigate('ShowProduct', { categoryId: item.id })
+              }
+            >
+              <Image source={{ uri: item.icon }} style={styles.icon} />
+              <Text style={styles.itemName}>{item.name}</Text>
+            </TouchableOpacity>
+          );
+        }}
+      />
     </View>
   );
 };
@@ -34,18 +70,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'flex-start',
-  },
-  text: {
-    color: '#fff',
-    marginBottom: 20,
-  },
-  button: {
-    fontSize: 20,
-    color: '#fff',
-    textDecorationLine: 'underline',
-    marginTop: 20,
   },
   swiperContainer: {
     width: '100%',
@@ -81,6 +107,39 @@ const styles = StyleSheet.create({
     color: '#fff', // Color for the pagination dots
     fontSize: 20, // Adjust the dot size
     marginHorizontal: 5, // Spacing between dots
+  },
+
+  titleContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+
+  flatListContainer: {
+    padding: 8,
+  },
+
+  button: {
+    flex: 1,
+    margin: 8,
+    borderWidth: 1,
+    borderColor: '7CAF58',
+    borderRadius: 8,
+    height: 130,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
+  itemName: {
+    color: 'black',
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -7,10 +7,27 @@ import {
   Image,
   ScrollView,
   Alert,
+  Button,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import InputComponent from '@/components/InputComponent';
+// import SelectDropdown from 'react-native-select-dropdown';
+import RNPickerSelect from 'react-native-picker-select';
+import { categoryList } from '../data/Data';
+import { Menu, Provider } from 'react-native-paper';
+
+// Define the shape of the product data
+interface ProductData {
+  productName: string;
+  imagePath: string;
+  category: number | null; // category can be number or null
+  description: string;
+  price: number | null; // price can be number or null
+  instagram: string;
+  facebook: string;
+  phoneNumber: string;
+}
 
 const AddProductScreen = () => {
   const [productData, setProductData] = useState({
@@ -23,6 +40,8 @@ const AddProductScreen = () => {
     facebook: '',
     phoneNumber: '',
   });
+
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   const addImage = async () => {
     // Request for permission to access the media library
@@ -62,6 +81,10 @@ const AddProductScreen = () => {
     }));
   };
 
+  useEffect(() => {
+    console.log(productData);
+  }, [productData]);
+
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -97,6 +120,41 @@ const AddProductScreen = () => {
             placeholder="Product Name"
             value={productData.productName}
             onChangeText={(text) => onInputChange('productName', text)}
+          />
+
+          {/* DROPDOWN */}
+          <RNPickerSelect
+            onValueChange={(value) => {
+              setSelectedCategory(value);
+              onInputChange('category', value); // Set the category id
+            }}
+            items={categoryList.map((category) => ({
+              label: category.name,
+              value: category.id,
+            }))}
+            placeholder={{
+              label: 'Select Category', // Default text displayed
+              value: '',
+            }}
+            style={{
+              inputIOS: {
+                ...styles.pickerSelectStyles,
+                color: 'black', // This sets the text color when an option is selected
+              },
+              inputAndroid: {
+                ...styles.pickerSelectStyles,
+                color: 'black', // This sets the text color when an option is selected
+              },
+              placeholder: {
+                color: 'black', // Set the placeholder text color here
+              },
+            }}
+            value={selectedCategory} // Use selectedCategory for dropdown value
+            useNativeAndroidPickerStyle={false} // Ensures custom styles on Android
+            // Add a custom icon
+            // Icon={() => {
+            //   return <Text style={styles.icon}>{'▼'}</Text>; // Use a simple arrow character or an icon component
+            // }}
           />
         </View>
 
@@ -199,6 +257,21 @@ const styles = StyleSheet.create({
   saveText: {
     color: 'black',
   },
+  pickerSelectStyles: {
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    // borderWidth: 1,
+    // borderColor: '#A0A0A0',
+    borderRadius: 8,
+    backgroundColor: 'skyblue',
+    color: 'blue',
+    marginVertical: 8,
+    width: '100%', // Full width of the container
+  },
+  // icon: {
+  //   fontSize: 18,
+  //   color: '#007AFF', // Color for the icon
+  // },
 });
 
 export default AddProductScreen;

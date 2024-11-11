@@ -7,7 +7,15 @@ export const imageSlider: string[] = [
 ];
 
 
-export const categoryList = [
+// Define an interface for the category object
+interface Category {
+  id: number; // The unique identifier for the category
+  name: string; // The name of the category
+  icon: string; // The URL of the category icon
+}
+
+// Create the categoryList array using the defined Category interface
+export const categoryList: Category[] = [
   {
     id: 1,
     name: 'Shirt',
@@ -54,3 +62,4 @@ export const categoryList = [
     icon: 'https://pngimage.net/wp-content/uploads/2018/05/etc-png-2.png',
   },
 ];
+

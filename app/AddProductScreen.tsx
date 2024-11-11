@@ -115,6 +115,38 @@ const AddProductScreen = () => {
             iconName="dollar"
           />
         </View>
+
+        <Text style={styles.sellerText}>Seller Contact</Text>
+
+        <InputComponent
+          placeholder="Whatsapp number (ex: +91 1234567890)"
+          value={productData.phoneNumber}
+          onChangeText={(text) => onInputChange('phoneNumber', text)}
+          isIcon={true}
+          iconName="whatsapp"
+        />
+
+        <InputComponent
+          placeholder="Instagram username (ex: @username)"
+          value={productData.instagram}
+          onChangeText={(text) => onInputChange('instagram', text)}
+          isIcon={true}
+          iconName="instagram"
+        />
+
+        <InputComponent
+          placeholder="Facebook username (ex: @username)"
+          value={productData.facebook}
+          onChangeText={(text) => onInputChange('facebook', text)}
+          isIcon={true}
+          iconName="facebook"
+        />
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.saveButton}>
+            <Text style={styles.saveText}>SAVE</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -143,6 +175,29 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+  },
+  sellerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginBottom: 8,
+    color: 'black',
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+  },
+  saveButton: {
+    marginTop: 16,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: 'mistyrose',
+  },
+  saveText: {
+    color: 'black',
   },
 });
 

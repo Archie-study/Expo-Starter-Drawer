@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
+import InputComponent from '@/components/InputComponent';
 
 const AddProductScreen = () => {
   const [productData, setProductData] = useState({
@@ -54,6 +55,13 @@ const AddProductScreen = () => {
     }
   };
 
+  const onInputChange = (type: string, value: string) => {
+    setProductData((prevData) => ({
+      ...prevData,
+      [type]: value,
+    }));
+  };
+
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -83,6 +91,30 @@ const AddProductScreen = () => {
             )}
           </TouchableOpacity>
         </View>
+
+        <View style={styles.horizontalContainer}>
+          <InputComponent
+            placeholder="Product Name"
+            value={productData.productName}
+            onChangeText={(text) => onInputChange('productName', text)}
+          />
+        </View>
+
+        <View style={styles.horizontalContainer}>
+          <InputComponent
+            placeholder="Description"
+            value={productData.description}
+            onChangeText={(text) => onInputChange('description', text)}
+            isDescription={true}
+          />
+          <InputComponent
+            placeholder="Price"
+            value={productData.price ?? ''}
+            onChangeText={(text) => onInputChange('price', text)}
+            isIcon={true}
+            iconName="dollar"
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -107,6 +139,10 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  horizontalContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
 });
 
